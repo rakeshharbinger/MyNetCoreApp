@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@using MyNetCoreApp.Models
+@model User
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Registration</h1>
+@*<div asp-validation-summary="All"></div>*@
+<div>
+    <form id="myForm" asp-action="Index">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" /><br />
+        <span asp-validation-for="FirstName"></span>
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" /><br />
+        <span asp-validation-for="LastName"></span>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" /><br />
+        <span asp-validation-for="Email"></span>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" /><br />
+        <span asp-validation-for="Password"></span>
+        @*<input id="btnSubmit" type="button" name="Submit" value="Submit" title="Submit" onclick="checkAndSubmitForm()" />*@
+        <input type="submit" name="Submit" />
+    </form>
+</div>
+<partial name="~/Views/Shared/_ValidationScriptsPartial.cshtml" />
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#myForm').submit(function (e) {
+            e.preventDefault();
+            var formIsValid = $("#myForm").valid();
+            if (!formIsValid) return false;
+            var url = $("#myForm").attr("action");
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: url,
+                    data: $('#myForm').serialize(),
+                    success: function (response) {
+                        alert("Hi");
+                    }
+                });
+        })
+    });
+
+
+    //$(document).ready(function () {
+    //    alert("hi");
+    //});
+
+    //$('#myForm').validate({
+
+    //    submitHandler: function (form) {
+    //        $.ajax({
+    //            url: form.action,
+    //            type: form.method,
+    //            data: $(form).serialize(),
+    ////            success: function (response) {
+    //                $('#answers').html(response);
+    //            }
+    //        });
+    //    }
+    //});
+
+    //if ($("#form").validate()) {
+    //    return true;
+    //} else {
+    //    return false;
+    //}
+
+
+    //$(document).ready(function () {
+    //    $('#myForm').submit(function (e) {
+    //        alert("1");
+    //        e.preventDefault();
+    //        var $form = $(this);
+    //        if (!$form.valid()) return false;
+    //        var url = $("#myForm").attr("action");
+    //        $.ajax(
+    //            {
+    //                type: 'POST',
+    //                url: url,
+    //                data: $('#myForm').serialize(),
+    //                success: function (response) {
+    //                    alert("Hi");
+    //                }
+    //            });
+    //    })
+    //});
+
+
+
+    //function checkAndSubmitForm() {
+    //    if (!ifEmailExist($("#Email").val())) {
+    //        var url = $("#myForm").attr("action");
+    //        var formData = new FormData();
+    //        formData.append("FirstName", $("#FirstName").val());
+    //        formData.append("LastName", $("#LastName").val());
+    //        formData.append("Email", $("#Email").val());
+    //        formData.append("Password", $("#Password").val());
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: url,
+    //            data: formData,
+    //            processData: false,
+    //            contentType: false
+    //        }).done(function (response) {
+
+    //        });
+
+            //$.ajax({
+            //    type: 'POST',
+            //    url: url,
+            //    data: formData,
+            //    processData: false,
+            //    contentType: false
+            //}).done(function (response) {
+            //    if (response.Status === "success") {
+            //        alert("done");
+            //    }
+            //    else {
+            //        alert("not done");
+            //    }
+            //});
+        //}
+        //else {
+        //    return false;
+        //}
+    //}
+
+    //function ifEmailExist() {
+    //    return false;
+    //}
+
+</script>
+
+
