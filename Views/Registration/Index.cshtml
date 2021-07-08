@@ -41,7 +41,13 @@
                     url: url,
                     data: $('#myForm').serialize(),
                     success: function (response) {
-                        alert("Hi");
+                        if (response.success) {
+                            alert("Success: " + response.responseText);
+                        }
+                        else {
+                            alert("Error: " + response.responseText);
+                        }
+                        location.reload();
                     }
                 });
         })

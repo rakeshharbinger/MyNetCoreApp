@@ -21,7 +21,18 @@ namespace MyNetCoreApp.Repos
 
         public bool IsUserExist(string email)
         {
-            throw new NotImplementedException();
+            bool isExist = false;
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_IsUserExist", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = email;
+                    conn.Open();
+                    isExist = Convert.ToBoolean(cmd.ExecuteScalar());
+                }
+            }
+            return isExist;
         }
 
         public void Register(User user)

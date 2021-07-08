@@ -24,13 +24,24 @@ namespace MyNetCoreApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(User user)
+        public JsonResult Index(User user)
         {
             if (ModelState.IsValid)
             {
-                _userRepos.Register(user);
+                if(_userRepos.IsUserExist(user.Email))
+                {
+                    return Json(new { success = false, responseText = "User already exists." });
+                }
+                else
+                {
+                    _userRepos.Register(user);
+                }
             }
-            return View();
+            else
+            {
+                return Json(new { success = false, responseText = "Field validation failed." });
+            }
+            return Json(new { success = true, responseText = "User added successfuly." });
         }
 
         // GET: RegistrationController/Details/5
