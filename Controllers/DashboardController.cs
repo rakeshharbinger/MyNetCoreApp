@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyNetCoreApp.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyNetCoreApp.Controllers
 {
-    //[Authorize]
+    [IsLoggedIn]
     public class DashboardController : Controller
     {
         // GET: DashboardController
