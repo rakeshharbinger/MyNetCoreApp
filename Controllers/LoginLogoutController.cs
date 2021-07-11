@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MyNetCoreApp.Models;
 using MyNetCoreApp.Repos;
 using System;
@@ -29,7 +30,8 @@ namespace MyNetCoreApp.Controllers
                 User user = _userRepos.Validate(cred);
                 if (user.UserId > 0)
                 {
-                    return Json(new {success = true, responseText = user.FirstName + " " + user.LastName});
+                   HttpContext.Session.SetString("FullName", user.FirstName + " " + user.LastName);
+                   return Json(new {success = true, responseText = user.FirstName + " " + user.LastName});
                 }
                 else
                 {

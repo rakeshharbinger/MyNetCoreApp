@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -25,6 +28,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Registration" asp-action="Index">Register</a>
                         </li>
                     </ul>
+                </div>
+                <div>
+                    <span>@httpContextAccessor.HttpContext.Session.GetString("FullName") </span>
                 </div>
             </div>
         </nav>
