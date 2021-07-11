@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+@using MyNetCoreApp.Models
+@model UserLogin
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Login</h1>
+<div>
+    <form id="formLogin" asp-action="Index">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" /><br />
+        <span asp-validation-for="Email"></span>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" /><br />
+        <span asp-validation-for="Password"></span>
+        <input type="submit" name="Submit" />
+    </form>
+</div>
+<partial name="~/Views/Shared/_ValidationScriptsPartial.cshtml" />
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#formLogin").submit(function (e) {
+            e.preventDefault();
+            var formIsValid = $("#formLogin").valid();
+            if (!formIsValid) return false;
+            var url = $("#formLogin").attr("action");
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: url,
+                    data: $('#formLogin').serialize(),
+                    success: function (response) {
+
+                        if (response.success) {
+                            alert("Success: " + response.responseText);
+                        }
+                        else {
+                            alert("Error: " + response.responseText);
+                        }
+                        //location.reload();
+                    }
+                });
+        })
+    });
+    
+</script>

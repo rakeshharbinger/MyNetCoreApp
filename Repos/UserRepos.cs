@@ -19,6 +19,11 @@ namespace MyNetCoreApp.Repos
             ConnectionString = _conf.GetConnectionString("DevDBConnection");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public bool IsUserExist(string email)
         {
             bool isExist = false;
@@ -35,6 +40,10 @@ namespace MyNetCoreApp.Repos
             return isExist;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
         public void Register(User user)
         {
             // SqlConnection conn = new SqlConnection(ConnectionString);
@@ -52,6 +61,35 @@ namespace MyNetCoreApp.Repos
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cred"></param>
+        /// <returns></returns>
+        public User Validate(UserLogin cred)
+        {
+            User user = new User();
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_ValidateUser", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = cred.Email;
+                    cmd.Parameters.Add("@Password", SqlDbType.VarChar).Value = cred.Password;
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        user.UserId = (int)reader["UserId"];
+                        user.FirstName = (string)reader["FirstName"];
+                        user.LastName = (string)reader["LastName"];
+                        user.Email = (string)reader["Email"];
+                    }
+                }
+            }
+            return user;
         }
     }
 }

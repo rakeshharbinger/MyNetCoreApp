@@ -53,7 +53,7 @@ namespace MyNetCoreApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Registration}/{action=Index}/{id?}");
+                    pattern: "{controller=LoginLogout}/{action=Index}/{id?}");
             });
         }
     }

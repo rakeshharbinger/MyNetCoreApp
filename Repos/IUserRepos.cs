@@ -10,5 +10,6 @@ namespace MyNetCoreApp.Repos
     {
         void Register(User user);
         bool IsUserExist(string email);
+        User Validate(UserLogin cred);
     }
 }
