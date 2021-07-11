@@ -19,6 +19,30 @@ namespace MyNetCoreApp.Repos
             ConnectionString = _conf.GetConnectionString("DevDBConnection");
         }
 
+        public List<User> GetUserList()
+        {
+            List<User> users = new List<User>();
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_GetUsers", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        User user = new User();
+                        user.UserId = (int)reader["UserId"];
+                        user.FirstName = (string)reader["FirstName"];
+                        user.LastName = (string)reader["LastName"];
+                        user.Email = (string)reader["Email"];
+                        users.Add(user);
+                    }
+                }
+            }
+            return users;
+        }
+
         /// <summary>
         /// 
         /// </summary>
