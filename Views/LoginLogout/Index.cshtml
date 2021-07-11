@@ -31,14 +31,13 @@
                     url: url,
                     data: $('#formLogin').serialize(),
                     success: function (response) {
-
                         if (response.success) {
-                            alert("Success: " + response.responseText);
+                            window.location.href = "dashboard";
                         }
                         else {
                             alert("Error: " + response.responseText);
                         }
-                        location.reload();
+                        //location.reload();
                     }
                 });
         })

@@ -30,12 +30,12 @@ namespace MyNetCoreApp.Controllers
                 User user = _userRepos.Validate(cred);
                 if (user.UserId > 0)
                 {
-                   HttpContext.Session.SetString("FullName", user.FirstName + " " + user.LastName);
-                   return Json(new {success = true, responseText = user.FirstName + " " + user.LastName});
+                    HttpContext.Session.SetString("FullName", user.FirstName + " " + user.LastName);
+                    return Json(new { success = true, responseText = "valid user" });
                 }
                 else
                 {
-                    return Json(new { success = true, responseText = "invalid user" });
+                    return Json(new { success = false, responseText = "invalid user" });
                 }
             }
             else
@@ -43,6 +43,13 @@ namespace MyNetCoreApp.Controllers
                 return Json(new { success = false, responseText = "Invalid login form" });
             }
 
+        }
+
+        [HttpPost]
+        public JsonResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return Json(new { success = true });
         }
     }
 }
