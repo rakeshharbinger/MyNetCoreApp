@@ -19,6 +19,10 @@ namespace MyNetCoreApp.Controllers
 
         public IActionResult Index()
         {
+            if(!string.IsNullOrEmpty(HttpContext.Session.GetString("FullName")))
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
             return View();
         }
 
