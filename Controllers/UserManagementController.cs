@@ -19,8 +19,56 @@ namespace MyNetCoreApp.Controllers
         // GET: UserManagementController
         public ActionResult Index()
         {
-            List<User> users = _userRepos.GetUserList();
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult LoadUser()
+        {
+            var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+
+            // Skip number of Rows count  
+            var start = Request.Form["start"].FirstOrDefault();
+
+            // Paging Length 10,20  
+            var length = Request.Form["length"].FirstOrDefault();
+
+            // Sort Column Name  
+            var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+
+            // Sort Column Direction (asc, desc)  
+            var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
+
+            // Search Value from (Search box)  
+            var searchValue = Request.Form["search[value]"].FirstOrDefault();
+
+            //Paging Size (10, 20, 50,100)  
+            int pageSize = length != null ? Convert.ToInt32(length) : 0;
+
+            int skip = start != null ? Convert.ToInt32(start) : 0;
+
+            int recordsTotal = 0;
+
+            // getting all Customer data  
+            var userData = _userRepos.GetUserList();
+            //Sorting
+            //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+            //{
+            //    userData = userData.OrderBy(sortColumn + " " + sortColumnDirection);
+            //}
+            //Search  
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                userData = userData.Where(m => m.FirstName == searchValue);
+            }
+
+            //total number of rows counts   
+            recordsTotal = userData.Count();
+            //Paging   
+            var data = userData.Skip(skip).Take(pageSize).ToList();
+            //Returning Json Data  
+            var jsonData = new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data };
+            return Ok(jsonData);
         }
 
         // GET: UserManagementController/Details/5

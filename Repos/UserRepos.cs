@@ -19,7 +19,7 @@ namespace MyNetCoreApp.Repos
             ConnectionString = _conf.GetConnectionString("DevDBConnection");
         }
 
-        public List<User> GetUserList()
+        public IEnumerable<User> GetUserList()
         {
             List<User> users = new List<User>();
             using (SqlConnection conn = new SqlConnection(ConnectionString))
