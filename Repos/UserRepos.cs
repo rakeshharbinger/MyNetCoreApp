@@ -157,5 +157,19 @@ namespace MyNetCoreApp.Repos
             }
             return user;
         }
+
+        public void DeleteUser(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_DeleteUser", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserId", SqlDbType.VarChar).Value = id;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

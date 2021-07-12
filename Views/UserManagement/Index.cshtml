@@ -48,12 +48,23 @@
                 {
                     data: null,
                     render: function (data, type, row) {
-                        return "<a href='#' class='btn btn-danger' onclick=DeleteData('" + row.userId + "'); >Delete</a>";
+                        return "<a href='#' class='btn btn-danger' onclick=DeleteUser('" + row.userId + "'); >Delete</a>";
                     }
                 }
             ]
         });
     });
+
+    function DeleteUser(id) {
+        $.ajax(
+            {
+                type: 'Get',
+                url: 'UserManagement/Delete/'+ id,
+                success: function (response) {
+                    window.location.href = '@Url.Action("")';
+                }
+            });
+    }
 </script>
 
 

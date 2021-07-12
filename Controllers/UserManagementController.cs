@@ -114,25 +114,11 @@ namespace MyNetCoreApp.Controllers
             return Json(new { success = true, responseText = "Edited Successfullly" });
         }
 
-        // GET: UserManagementController/Delete/5
+        
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: UserManagementController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _userRepos.DeleteUser(id);
+            return Json(new { success = true, responseText = "Deleted Successfullly" });
         }
     }
 }

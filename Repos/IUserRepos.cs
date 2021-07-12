@@ -14,5 +14,6 @@ namespace MyNetCoreApp.Repos
         IEnumerable<User> GetUserList();
         User GetUser(int id);
         void EditUser(User user);
+        void DeleteUser(int id);
     }
 }
