@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyNetCoreApp.Filters;
 using MyNetCoreApp.Models;
 using MyNetCoreApp.Repos;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyNetCoreApp.Controllers
 {
+    [IsLoggedIn]
     public class UserManagementController : Controller
     {
         private readonly IUserRepos _userRepos;  

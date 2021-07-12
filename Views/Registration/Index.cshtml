@@ -7,23 +7,28 @@
 
 <h1>Registration</h1>
 @*<div asp-validation-summary="All"></div>*@
-<div>
-    <form id="myForm" asp-action="Index">
-        <label asp-for="FirstName"></label>
-        <input asp-for="FirstName" /><br />
-        <span asp-validation-for="FirstName"></span>
-        <label asp-for="LastName"></label>
-        <input asp-for="LastName" /><br />
-        <span asp-validation-for="LastName"></span>
-        <label asp-for="Email"></label>
-        <input asp-for="Email" /><br />
-        <span asp-validation-for="Email"></span>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" /><br />
-        <span asp-validation-for="Password"></span>
-        @*<input id="btnSubmit" type="button" name="Submit" value="Submit" title="Submit" onclick="checkAndSubmitForm()" />*@
-        <input type="submit" name="Submit" />
-    </form>
+<div class="container">
+    <br />
+    <div style="width:90%; margin:0 auto;">
+        <div>
+            <form id="myForm" asp-action="Index">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" /><br />
+                <span asp-validation-for="FirstName"></span>
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" /><br />
+                <span asp-validation-for="LastName"></span>
+                <label asp-for="Email"></label>
+                <input asp-for="Email" /><br />
+                <span asp-validation-for="Email"></span>
+                <label asp-for="Password"></label>
+                <input asp-for="Password" /><br />
+                <span asp-validation-for="Password"></span>
+                @*<input id="btnSubmit" type="button" name="Submit" value="Submit" title="Submit" onclick="checkAndSubmitForm()" />*@
+                <input type="submit" name="Submit" />
+            </form>
+        </div>
+    </div>
 </div>
 <partial name="~/Views/Shared/_ValidationScriptsPartial.cshtml" />
 <script type="text/javascript">
