@@ -101,22 +101,17 @@ namespace MyNetCoreApp.Controllers
         // GET: UserManagementController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            User user = _userRepos.GetUser(id);
+            return View(user);
         }
 
         // POST: UserManagementController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(User user)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _userRepos.EditUser(user);
+            return Json(new { success = true, responseText = "Edited Successfullly" });
         }
 
         // GET: UserManagementController/Delete/5

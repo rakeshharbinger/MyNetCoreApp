@@ -9,6 +9,8 @@
                     <th>FirstName</th>
                     <th>LastName</th>
                     <th>Email</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
         </table>
@@ -39,7 +41,17 @@
                 { "data": "userId", "name": "userId", "autoWidth": true },
                 { "data": "firstName", "name": "firstName", "autoWidth": true },
                 { "data": "lastName", "name": "lastName", "autoWidth": true },
-                { "data": "email", "name": "email", "autoWidth": true }]
+                { "data": "email", "name": "email", "autoWidth": true },
+                {
+                    "render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/UserManagement/Edit/' + full.userId + '">Edit</a>'; }
+                },
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        return "<a href='#' class='btn btn-danger' onclick=DeleteData('" + row.userId + "'); >Delete</a>";
+                    }
+                }
+            ]
         });
     });
 </script>

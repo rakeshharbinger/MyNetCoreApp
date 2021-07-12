@@ -19,6 +19,48 @@ namespace MyNetCoreApp.Repos
             ConnectionString = _conf.GetConnectionString("DevDBConnection");
         }
 
+        public User GetUser(int id)
+        {
+            User user = new User();
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_GetUser", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserId", SqlDbType.VarChar).Value = id;
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        user.UserId = (int)reader["UserId"];
+                        user.FirstName = (string)reader["FirstName"];
+                        user.LastName = (string)reader["LastName"];
+                        user.Email = (string)reader["Email"];
+                        user.Password = (string)reader["Password"];
+                    }
+                }
+            }
+            return user;
+        }
+
+        public void EditUser(User user)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_Edit_User", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserId", SqlDbType.VarChar).Value = user.UserId;
+                    cmd.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = user.FirstName;
+                    cmd.Parameters.Add("@LastName", SqlDbType.VarChar).Value = user.LastName;
+                    cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = user.Email;
+                    cmd.Parameters.Add("@Password", SqlDbType.VarChar).Value = user.Password;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public IEnumerable<User> GetUserList()
         {
             List<User> users = new List<User>();

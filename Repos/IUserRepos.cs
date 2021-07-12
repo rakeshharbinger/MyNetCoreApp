@@ -12,5 +12,7 @@ namespace MyNetCoreApp.Repos
         bool IsUserExist(string email);
         User Validate(UserLogin cred);
         IEnumerable<User> GetUserList();
+        User GetUser(int id);
+        void EditUser(User user);
     }
 }

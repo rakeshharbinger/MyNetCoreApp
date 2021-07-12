@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Edit";
+}
+@using MyNetCoreApp.Models
+@model User
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Edit User</h1>
+@*<div asp-validation-summary="All"></div>*@
+<div>
+    <form id="myForm" asp-action="Edit">
+        <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="Password" />
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" /><br />
+        <span asp-validation-for="FirstName"></span>
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" /><br />
+        <span asp-validation-for="LastName"></span>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" /><br />
+        <span asp-validation-for="Email"></span>
+        <input type="submit" name="Submit" />
+    </form>
+</div>
+<partial name="~/Views/Shared/_ValidationScriptsPartial.cshtml" />
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myForm').submit(function (e) {
+            e.preventDefault();
+            var formIsValid = $("#myForm").valid();
+            if (!formIsValid) return false;
+            var url = $("#myForm").attr("action");
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: url,
+                    data: $('#myForm').serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            alert("Success: " + response.responseText);
+                        }
+                        else {
+                            alert("Error: " + response.responseText);
+                        }
+                        window.location.href = '@Url.Action("")';
+                    }
+                });
+        })
+    });
+</script>
+
+
