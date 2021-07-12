@@ -26,21 +26,20 @@
                 "url": "/UserManagement/LoadUser",
                 "type": "POST",
                 "datatype": "json"
+                //"dataSrc": function(json) {
+                //    return json.data;
+                //}
             },
             "columnDefs": [{
                 "targets": [0],
                 "visible": false,
                 "searchable": false
-            },
-            {
-                "defaultContent": "-",
-                "targets": "_all"
             }],
             "columns": [
-                { "data": "UserId", "name": "UserId", "autoWidth": true },
-                { "data": "FirstName", "name": "FirstName", "autoWidth": true },
-                { "data": "LastName", "name": "LastName", "autoWidth": true },
-                { "data": "Email", "name": "Email", "autoWidth": true }]
+                { "data": "userId", "name": "userId", "autoWidth": true },
+                { "data": "firstName", "name": "firstName", "autoWidth": true },
+                { "data": "lastName", "name": "lastName", "autoWidth": true },
+                { "data": "email", "name": "email", "autoWidth": true }]
         });
     });
 </script>
